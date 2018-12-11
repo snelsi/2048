@@ -1,4 +1,4 @@
-// This is the realisation of Console "2048" Game using —++
+// This is the realisation of Console "2048" Game using –°++
 #include "Console2048.h"
 
 #define N 4			// FIELD SIZE
@@ -13,9 +13,9 @@ bool first2048;		// Does user got 2048
 
 
 // Set Console text color
-void setColor(int color) 
+void setColor(int color)
 {
-	SetConsoleTextAttribute( GetStdHandle(STD_OUTPUT_HANDLE), (WORD)((15 << 4) | color) );
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (WORD)((15 << 4) | color));
 }
 
 // Cell setColor set (depending on cell value)
@@ -47,8 +47,8 @@ void printField(int **arr) {
 	system("cls");
 
 	cout << "\n     Score:  ";
-	setColor(5); 
-	cout << setw(5) << score; 
+	setColor(5);
+	cout << setw(5) << score;
 	setColor(0);
 
 	cout << "\tHighscore:  ";
@@ -126,8 +126,8 @@ void winMenu() {
 		cin >> r;
 		switch (r)
 		{
-		case 'y': case 'Y': case 'ƒ': case '‰': proceed = 1; ind = 0; break;	// Continue match
-		case 'n': case 'N': case 'Õ': case 'Ì': proceed = 0; ind = 0; break;	// End match
+		case 'y': case 'Y': case '–î': case '–¥': proceed = 1; ind = 0; break;	// Continue match
+		case 'n': case 'N': case '–ù': case '–Ω': proceed = 0; ind = 0; break;	// End match
 		default: cout << "Enter answer in y/n form: ";
 		}
 	} while (ind);
@@ -185,20 +185,17 @@ bool movefuncUP(int **arr) {
 					i -= 2;
 					ind = 0;
 				}
-				else
+				else if (arr[i - 1][j] == arr[i][j])
 				{
-					if (arr[i - 1][j] == arr[i][j])
+					arr[i - 1][j] += arr[i][j];
+					if (first2048 && arr[i - 1][j] == 2048)
 					{
-						arr[i - 1][j] += arr[i][j];
-						if (first2048 && arr[i - 1][j] == 2048)
-						{
-							winMenu();
-						}
-						score += arr[i - 1][j];
-						arr[i][j] = 0;
-						l = i + 1;
-						ind = 0;
+						winMenu();
 					}
+					score += arr[i - 1][j];
+					arr[i][j] = 0;
+					l = i + 1;
+					ind = 0;
 				}
 			}
 		}
@@ -224,20 +221,17 @@ bool movefuncDOWN(int **arr) {
 					i += 2;
 					ind = 0;
 				}
-				else
+				else if (arr[i + 1][j] == arr[i][j])
 				{
-					if (arr[i + 1][j] == arr[i][j])
+					arr[i + 1][j] *= 2;
+					if (first2048 && arr[i + 1][j] == 2048)
 					{
-						arr[i + 1][j] *= 2;
-						if (first2048 && arr[i + 1][j] == 2048)
-						{
-							winMenu();
-						}
-						score += arr[i + 1][j];
-						arr[i][j] = 0;
-						l = i - 1;
-						ind = 0;
+						winMenu();
 					}
+					score += arr[i + 1][j];
+					arr[i][j] = 0;
+					l = i - 1;
+					ind = 0;
 				}
 			}
 		}
@@ -263,20 +257,17 @@ bool movefuncLEFT(int **arr) {
 					j -= 2;
 					ind = 0;
 				}
-				else
+				else if (arr[i][j - 1] == arr[i][j])
 				{
-					if (arr[i][j - 1] == arr[i][j])
+					arr[i][j - 1] += arr[i][j];
+					if (first2048 && arr[i][j - 1] == 2048)
 					{
-						arr[i][j - 1] += arr[i][j];
-						if (first2048 && arr[i][j - 1] == 2048)
-						{
-							winMenu();
-						}
-						score += arr[i][j - 1];
-						arr[i][j] = 0;
-						l = j + 1;
-						ind = 0;
+						winMenu();
 					}
+					score += arr[i][j - 1];
+					arr[i][j] = 0;
+					l = j + 1;
+					ind = 0;
 				}
 			}
 		}
@@ -303,20 +294,17 @@ bool movefuncRIGHT(int **arr) {
 					j += 2;
 					ind = 0;
 				}
-				else
+				else if (arr[i][j + 1] == arr[i][j])
 				{
-					if (arr[i][j + 1] == arr[i][j])
+					arr[i][j + 1] += arr[i][j];
+					if (first2048 && arr[i][j + 1] == 2048)
 					{
-						arr[i][j + 1] += arr[i][j];
-						if (first2048 && arr[i][j + 1] == 2048)
-						{
-							winMenu();
-						}
-						score += arr[i][j + 1];
-						arr[i][j] = 0;
-						l = j - 1;
-						ind = 0;
+						winMenu();
 					}
+					score += arr[i][j + 1];
+					arr[i][j] = 0;
+					l = j - 1;
+					ind = 0;
 				}
 			}
 		}
@@ -354,11 +342,11 @@ void match(int **arr) {
 			char move = _getch();
 			switch (move)
 			{
-			// Ind = 0 if at least 1 cell was moved
-			case 72: case 'w': case 'ˆ':  ind = movefuncUP(arr);     break;
-			case 80: case 's': case '˚':  ind = movefuncDOWN(arr);   break;
-			case 75: case 'a': case 'Ù':  ind = movefuncLEFT(arr);   break;
-			case 77: case 'd': case '‚':  ind = movefuncRIGHT(arr);  break;
+				// Ind = 0 if at least 1 cell was moved
+			case 72: case 'w': case '—Ü':  ind = movefuncUP(arr);     break;
+			case 80: case 's': case '—ã':  ind = movefuncDOWN(arr);   break;
+			case 75: case 'a': case '—Ñ':  ind = movefuncLEFT(arr);   break;
+			case 77: case 'd': case '–≤':  ind = movefuncRIGHT(arr);  break;
 			}
 			cin.clear();
 		} while (ind);
